@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-//import com.mpoo.ruralmaps.ruralmaps.R;
+//import com.mpoo.ruralmaps.ruralmaps.R;jjj
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
