@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-//import com.mpoo.ruralmaps.ruralmaps.R;jjj
+//import com.mpoo.ruralmaps.ruralmaps.R;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -25,7 +25,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initViews();
+
     }
+
 
     /**
      * Recupera as views e configura os listeners para os campos editáveis e para o botão de entrar
@@ -50,8 +52,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         edtUser = (EditText) findViewById(R.id.login_edt_user);
         edtUser.addTextChangedListener(textWatcher);
+
         edtPassword = (EditText) findViewById(R.id.login_edt_password);
         edtPassword.addTextChangedListener(textWatcher);
+
         Button btnEnter = (Button) findViewById(R.id.login_btn_enter);
         btnEnter.setOnClickListener(this);
     }
@@ -71,10 +75,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.login_btn_enter) {
             if (validateFields()) {
-                /**
-                 * Nesse ponto você poderia chamar um serviço de autenticação do usuário.
-                 * Por questões de simplicidade e entendimento emitiremos somente um alerta
-                 */
                 Toast.makeText(this, resources.getString(R.string.login_auth_ok), Toast.LENGTH_LONG).show();
             }
         }
@@ -90,7 +90,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private boolean validateFields() {
         String user = edtUser.getText().toString().trim();
         String pass = edtPassword.getText().toString().trim();
-        return (!isEmptyFields(user, pass) && hasSizeValid(user, pass));
+        return (!isEmptyFields(user, pass) && hasSizeValid(user, pass) && !hasSpaceLogin(user));
     }
 
     private boolean isEmptyFields(String user, String pass) {
@@ -119,6 +119,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
         return true;
     }
+
+    private boolean hasSpaceLogin(String user) {
+        int idx = user.indexOf(" ");
+        if (idx != -1){
+            edtUser.requestFocus();
+            edtUser.setError(resources.getString(R.string.login_user_has_space));
+            return true;
+        }return false;
+    }
+
 
     /**
      * Limpa os ícones e as mensagens de erro dos campos desejados

@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
+        android:src="@drawable/logoo"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/login_logo_marginBottom"
         android:contentDescription="@string/img_content_description" />
@@ -47,11 +47,19 @@
         android:inputType="textPassword"
         android:imeOptions="actionDone" />
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_checkbox_conectado"
+        android:text="@string/login_checkbox_conectado"
+        />
+
     <Button
         android:id="@+id/login_btn_enter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_btn_enter_value"
-        android:layout_marginTop="@dimen/login_btn_enter_marginTop" />
+        android:layout_marginTop="@dimen/login_btn_enter_marginTop"
+        android:onClick="logar"/>
 
 </LinearLayout>
