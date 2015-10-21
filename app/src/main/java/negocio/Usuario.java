@@ -1,4 +1,4 @@
-package com.mpoo.ruralmaps.ruralmaps.negocio;
+package negocio;
 
 /**
  * Created by batmovel on 18/10/2015.

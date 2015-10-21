@@ -1,15 +1,21 @@
 package com.mpoo.ruralmaps.ruralmaps;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+
+import dao.UsuarioDAO;
 
 //import com.mpoo.ruralmaps.ruralmaps.R;
 
@@ -19,6 +25,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText edtUser;
     private EditText edtPassword;
     private Resources resources;
+    public UsuarioDAO helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +33,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         initViews();
 
+        helper = new UsuarioDAO(this);
     }
 
-
     /**
-     * Recupera as views e configura os listeners para os campos editáveis e para o botão de entrar
+     * Recupera as views e configura os listeners para os campos editaveis e para o botao de entrar
      */
     private void initViews() {
         resources = getResources();
@@ -61,7 +68,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * Chama o método para limpar erros
+     * Chama o metodo para limpar erros
      *
      * @param s Editable
      */
@@ -70,27 +77,41 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             clearErrorFields(edtUser);
         }
     }
+    public void logar(View view) {
+        String usuario = edtUser.getText().toString().trim();
+        String senha = edtPassword.getText().toString().trim();
+
+        if (helper.logar(usuario, senha)) {
+            startActivity(new Intent(this, PrincipalActivity.class));
+            finish();
+        }else {
+            //Mensagem de erro
+            Toast.makeText(this, resources.getString(R.string.login_auth_deny), Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login_btn_enter) {
             if (validateFields()) {
-                Toast.makeText(this, resources.getString(R.string.login_auth_ok), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, resources.getString(R.string.login_auth_ok), Toast.LENGTH_LONG).show();
+                logar(v);
             }
         }
     }
 
+
     /**
-     * Efetua a validação dos campos.Nesse caso, valida se os campos não estão vazios e se tem
+     * Efetua a validacao dos campos.Nesse caso, valida se os campos nao estao vazios e se tem
      * tamanho permitido.
-     * Nesse método você poderia colocar outros tipos de validações de acordo com a sua necessidade.
+     * Nesse metodo voce poderia colocar outros tipos de validacoes de acordo com a sua necessidade.
      *
-     * @return boolean que indica se os campos foram validados com sucesso ou não
+     * @return boolean que indica se os campos foram validados com sucesso ou nao
      */
     private boolean validateFields() {
         String user = edtUser.getText().toString().trim();
         String pass = edtPassword.getText().toString().trim();
-        return (!isEmptyFields(user, pass) && hasSizeValid(user, pass) && !hasSpaceLogin(user));
+        return (!isEmptyFields(user, pass) && hasSizeValid(user, pass) && !noHasSpaceLogin(user));
     }
 
     private boolean isEmptyFields(String user, String pass) {
@@ -120,7 +141,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         return true;
     }
 
-    private boolean hasSpaceLogin(String user) {
+    private boolean noHasSpaceLogin(String user) {
         int idx = user.indexOf(" ");
         if (idx != -1){
             edtUser.requestFocus();
@@ -131,7 +152,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
     /**
-     * Limpa os ícones e as mensagens de erro dos campos desejados
+     * Limpa os icones e as mensagens de erro dos campos desejados
      *
      * @param editTexts lista de campos do tipo EditText
      */
@@ -140,4 +161,27 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             editText.setError(null);
         }
     }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

@@ -1,12 +1,11 @@
-package com.mpoo.ruralmaps.ruralmaps.dao;
+package dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mpoo.ruralmaps.ruralmaps.negocio.Tarefa;
-import com.mpoo.ruralmaps.ruralmaps.negocio.Usuario;
+import negocio.Tarefa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,19 +39,18 @@ public class TarefaDAO {
         Cursor cursor = getDatabase().query(DatabaseHelper.Tarefa.TABELA,
                 DatabaseHelper.Tarefa.COLUNAS, null, null, null, null, null);
 
-        List<Tarefa> tarefas = new ArrayList<Tarefa>();
+        List<Tarefa> tarefa = new ArrayList<Tarefa>();
         while (cursor.moveToNext()){
             Tarefa negocio = criarTarefa(cursor);
-            tarefas.add(negocio);
+            tarefa.add(negocio);
         }
         cursor.close();
-        return tarefas;
+        return tarefa;
     }
 
     public long salvarTarefa(Tarefa negocio){
         ContentValues valores = new ContentValues();
         valores.put(DatabaseHelper.Tarefa.TAREFA, negocio.getTarefa());
-        valores.put(DatabaseHelper.Tarefa.DT_CRIACAO, negocio.getTarefa());
 
         if (negocio.get_id() != null){
             return getDatabase().update(DatabaseHelper.Tarefa.TABELA, valores, "_id = ?",

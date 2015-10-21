@@ -1,11 +1,11 @@
-package com.mpoo.ruralmaps.ruralmaps.dao;
+package dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mpoo.ruralmaps.ruralmaps.negocio.Usuario;
+import negocio.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +64,8 @@ public class UsuarioDAO {
     }
 
     public boolean removerUsario(int id){
-        return getDatabase().delete(DatabaseHelper.Usuarios.TABELA,"_id = ?",
-                new String[]{Integer.toString(id)}) > 0;
+        return getDatabase().delete(DatabaseHelper.Usuarios.TABELA,
+                "_id = ?", new String[]{Integer.toString(id)}) > 0;
     }
 
     public Usuario buscarUsuarioPorId(int id){
@@ -80,9 +80,19 @@ public class UsuarioDAO {
         return null;
     }
 
+    public boolean logar (String usuario, String senha){
+        Cursor cursor = getDatabase().query(DatabaseHelper.Usuarios.TABELA,
+                null, "LOGIN = ? AND SENHA = ?", new String[]{usuario, senha}, null, null, null);
+
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
+
     public void fechar(){
         databaseHelper.close();
         database = null;
-        }
+    }
 
 }

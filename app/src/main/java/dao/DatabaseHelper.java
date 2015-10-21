@@ -1,4 +1,4 @@
-package com.mpoo.ruralmaps.ruralmaps.dao;
+package dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,16 +16,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //tabela de usuários
-        db.execSQL("create table usuarios(_id integer primary key autoincrement, "
+        //tabela de usuarios
+        db.execSQL("create table usuario(_id integer primary key autoincrement, "
                 + "nome text not null, login text not null, senha text not null)");
 
         //tabala de tarefas
-        db.execSQL("create table tarefas(_id integer primary key autoincrement,"
-                + "tarefa text not null, dt_criacao datetime default current_datetime, dt_completado date)");
+        db.execSQL("create table tarefa(_id integer primary key autoincrement,"
+                + "tarefa text not null, dt_criacao datetime default current_timestamp, dt_completado datetime)");
 
-        //cadastrar usuário Admin
-        db.execSQL("insert into usuarios(nome, login, senha) values('Admin','admin', '123456')");
+        //cadastrar usuario Admin
+        db.execSQL("insert into usuario(nome, login, senha) values('Admin','admin', '123456')");
     }
 
     @Override
