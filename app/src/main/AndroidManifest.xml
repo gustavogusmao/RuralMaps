@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
             <activity
-                android:name="com.mpoo.ruralmaps.ruralmaps.PrincipalActivity"
-                android:label="@string/title_activity_principal" >
+                android:name="com.mpoo.ruralmaps.ruralmaps.MapaActivity"
+                android:label="@string/title_activity_mapa" >
 
             </activity>
 

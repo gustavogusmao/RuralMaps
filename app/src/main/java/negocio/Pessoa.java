@@ -1,16 +1,16 @@
 package negocio;
 
 
-public class Tarefa {
+public class Pessoa {
 
     private Integer _id;
     private String tarefa;
     private String dt_criacao;
     private String dt_completado;
 
-    public Tarefa(){}
+    public Pessoa(){}
 
-    public Tarefa (Integer id, String tarefa, String dtcriacao, String dtcompletado){
+    public Pessoa(Integer id, String tarefa, String dtcriacao, String dtcompletado){
         this._id = id;
         this.tarefa = tarefa;
         this.dt_completado = dtcompletado;

@@ -2,6 +2,7 @@ package com.mpoo.ruralmaps.ruralmaps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +28,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText edtPassword;
     private Resources resources;
     public UsuarioDAO helper;
+    private CheckBox checkbox_conectado;
+
+    private static final String MANTER_CONECTADO = "manter_conectado";
+    private static final String PREFERENCE_NAME = "LoginActivityPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         initViews();
 
         helper = new UsuarioDAO(this);
+
+        SharedPreferences preferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        boolean conectado =  preferences.getBoolean(MANTER_CONECTADO, false);
+
+        if(conectado){
+            ChamarMapaActivity();
+        }
     }
 
     /**
@@ -63,6 +76,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         edtPassword = (EditText) findViewById(R.id.login_edt_password);
         edtPassword.addTextChangedListener(textWatcher);
 
+        checkbox_conectado = (CheckBox) findViewById(R.id.login_checkbox_conectado);
+
         Button btnEnter = (Button) findViewById(R.id.login_btn_enter);
         btnEnter.setOnClickListener(this);
     }
@@ -82,8 +97,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String senha = edtPassword.getText().toString().trim();
 
         if (helper.logar(usuario, senha)) {
-            startActivity(new Intent(this, PrincipalActivity.class));
-            finish();
+            if(checkbox_conectado.isChecked()){
+                SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putBoolean(MANTER_CONECTADO, true);
+                editor.commit();
+                }
+
+                ChamarMapaActivity();
+
         }else {
             //Mensagem de erro
             Toast.makeText(this, resources.getString(R.string.login_auth_deny), Toast.LENGTH_LONG).show();
@@ -163,6 +186,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
+    private void ChamarMapaActivity(){
+        startActivity(new Intent(this, MapaActivity.class));
+        finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

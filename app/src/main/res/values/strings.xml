@@ -6,7 +6,7 @@
 
      <!-- mensagens da tela-->
      <string name="login_auth_ok">Autenticação Válida!</string>
-     <string name="login_auth_deny">Login ou senha incorretos</string>
+     <string name="login_auth_deny">Login e/ou senha incorretos</string>
     
      <!-- mensagens de validacao-->
      <string name="login_user_required">Campo login obrigatório!</string>
@@ -24,7 +24,7 @@
      <string name="login_btn_cadastro_value">Cadastrar</string>
      <string name="login_checkbox_conectado">Manter conectado</string>
 
-     <string name="title_activity_principal">PrincipalActivity</string>
+     <string name="title_activity_mapa">MapaActivity</string>
 
     <string name="hello_maps">Mapa aqui</string>
 </resources>

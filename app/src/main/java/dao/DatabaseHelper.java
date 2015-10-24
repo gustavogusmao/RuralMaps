@@ -45,8 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
     }
 
-    public static class Tarefa {
-        public static final String TABELA = "tarefa";
+    public static class Pessoa {
+        public static final String TABELA = "pessoa";
         public static final String _ID = "_id";
         public static final String TAREFA = "tarefa";
         public static final String DT_CRIACAO = "dt_criacao";
