@@ -25,17 +25,17 @@ public class PessoaDAO {
 
     private negocio.Pessoa criarPessoa(Cursor cursor){
         negocio.Pessoa negocio = new negocio.Pessoa(
-                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Pessoa._ID)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoa.TAREFA)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoa.DT_CRIACAO)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoa.DT_COMPLETADO))
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Pessoas._ID)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoas.PESSOA)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoas.DT_CRIACAO)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Pessoas.DT_COMPLETADO))
         );
         return negocio;
     }
 
     public List<negocio.Pessoa> listarTarefa(){
-        Cursor cursor = getDatabase().query(DatabaseHelper.Pessoa.TABELA,
-                DatabaseHelper.Pessoa.COLUNAS, null, null, null, null, null);
+        Cursor cursor = getDatabase().query(DatabaseHelper.Pessoas.TABELA,
+                DatabaseHelper.Pessoas.COLUNAS, null, null, null, null, null);
 
         List<negocio.Pessoa> pessoa = new ArrayList<negocio.Pessoa>();
         while (cursor.moveToNext()){
@@ -48,23 +48,23 @@ public class PessoaDAO {
 
     public long salvarPessoa(negocio.Pessoa negocio){
         ContentValues valores = new ContentValues();
-        valores.put(DatabaseHelper.Pessoa.TAREFA, negocio.getTarefa());
+        valores.put(DatabaseHelper.Pessoas.PESSOA, negocio.getPessoa());
 
         if (negocio.get_id() != null){
-            return getDatabase().update(DatabaseHelper.Pessoa.TABELA, valores, "_id = ?",
+            return getDatabase().update(DatabaseHelper.Pessoas.TABELA, valores, "_id = ?",
                     new String[]{negocio.get_id().toString()});
         }
-        return getDatabase().insert(DatabaseHelper.Pessoa.TABELA, null, valores);
+        return getDatabase().insert(DatabaseHelper.Pessoas.TABELA, null, valores);
     }
 
     public boolean removerPessoa(int id){
-        return getDatabase().delete(DatabaseHelper.Pessoa.TABELA,"_id = ?",
+        return getDatabase().delete(DatabaseHelper.Pessoas.TABELA,"_id = ?",
                 new String[]{Integer.toString(id)}) > 0;
     }
 
     public negocio.Pessoa buscarPessoaPorId(int id){
-        Cursor cursor = getDatabase().query(DatabaseHelper.Pessoa.TABELA,
-                DatabaseHelper.Pessoa.COLUNAS,"_id = ?", new String[]{Integer.toString(id)},null, null, null);
+        Cursor cursor = getDatabase().query(DatabaseHelper.Pessoas.TABELA,
+                DatabaseHelper.Pessoas.COLUNAS,"_id = ?", new String[]{Integer.toString(id)},null, null, null);
 
         if (cursor.moveToNext()){
             negocio.Pessoa negocio = criarPessoa(cursor);

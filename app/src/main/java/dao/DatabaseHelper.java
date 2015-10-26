@@ -20,9 +20,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table usuario(_id integer primary key autoincrement, "
                 + "nome text not null, login text not null, senha text not null)");
 
-        //tabala de tarefas
+        //tabala de Pessoas
         db.execSQL("create table tarefa(_id integer primary key autoincrement,"
-                + "tarefa text not null, dt_criacao datetime default current_timestamp, dt_completado datetime)");
+                + "pessoa text not null, dt_criacao text , dt_completado text)");
 
         //cadastrar usuario Admin
         db.execSQL("insert into usuario(nome, login, senha) values('Admin','admin', '123456')");
@@ -39,21 +39,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String NOME = "nome";
         public static final String LOGIN = "login";
         public static final String SENHA = "senha";
+        public static final String CREATED_AT = "created_at";
 
         public static final String[] COLUNAS = new String[]{
-                _ID, NOME, LOGIN, SENHA
+                _ID, NOME, LOGIN, SENHA, CREATED_AT
         };
     }
 
-    public static class Pessoa {
-        public static final String TABELA = "pessoa";
+    public static class Pessoas {
+        public static final String TABELA = "pessoas";
         public static final String _ID = "_id";
-        public static final String TAREFA = "tarefa";
+        public static final String PESSOA = "pessoa";
         public static final String DT_CRIACAO = "dt_criacao";
         public static final String DT_COMPLETADO = "dt_completado";
 
         public static final String[] COLUNAS = new String[]{
-                _ID, TAREFA, DT_CRIACAO, DT_COMPLETADO
+                _ID, PESSOA, DT_CRIACAO, DT_COMPLETADO
         };
     }
 }

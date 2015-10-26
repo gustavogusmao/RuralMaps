@@ -32,7 +32,8 @@ public class UsuarioDAO {
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.Usuarios._ID)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.NOME)),
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.LOGIN)),
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.SENHA))
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.SENHA)),
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.Usuarios.CREATED_AT))
         );
         return negocio;
     }
@@ -55,6 +56,7 @@ public class UsuarioDAO {
         valores.put(DatabaseHelper.Usuarios.NOME, usuario.getNome());
         valores.put(DatabaseHelper.Usuarios.LOGIN, usuario.getLogin());
         valores.put(DatabaseHelper.Usuarios.SENHA, usuario.getSenha());
+        valores.put(DatabaseHelper.Usuarios.CREATED_AT, usuario.getCreated_at());
 
         if (usuario.get_id() != null){
             return getDatabase().update(DatabaseHelper.Usuarios.TABELA, valores, "_id = ?",

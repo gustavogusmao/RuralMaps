@@ -4,15 +4,15 @@ package negocio;
 public class Pessoa {
 
     private Integer _id;
-    private String tarefa;
+    private String pessoa;
     private String dt_criacao;
     private String dt_completado;
 
     public Pessoa(){}
 
-    public Pessoa(Integer id, String tarefa, String dtcriacao, String dtcompletado){
+    public Pessoa(Integer id, String pessoa, String dtcriacao, String dtcompletado){
         this._id = id;
-        this.tarefa = tarefa;
+        this.pessoa = pessoa;
         this.dt_completado = dtcompletado;
         this.dt_criacao = dtcriacao;
         }
@@ -41,12 +41,12 @@ public class Pessoa {
         this.dt_criacao = dt_criacao;
     }
 
-    public String getTarefa() {
-        return tarefa;
+    public String getPessoa() {
+        return pessoa;
     }
 
-    public void setTarefa(String tarefa) {
-        this.tarefa = tarefa;
+    public void setPessoa(String pessoa) {
+        this.pessoa = pessoa;
     }
 
 

@@ -51,7 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/login_checkbox_conectado"
-        android:text="@string/login_checkbox_conectado"/>
+        android:text="@string/login_checkbox_conectado"
+        android:checked="false" />
 
     <Button
         android:id="@+id/login_btn_enter"
@@ -63,10 +64,12 @@
 
 
     <Button
-        android:id="@+id/login_btn_cadatro"
+        android:id="@+id/login_btn_cadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_btn_cadastro_value"
-        android:layout_marginTop="@dimen/login_btn_cadastro_marginTop"/>
+        android:layout_marginTop="@dimen/login_btn_cadastro_marginTop"
+        android:onClick="abrirCadastro"/>
+
 
 </LinearLayout>
