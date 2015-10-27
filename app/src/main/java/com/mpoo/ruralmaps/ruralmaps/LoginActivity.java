@@ -42,7 +42,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         boolean conectado =  preferences.getBoolean(MANTER_CONECTADO, false);
 
         if(conectado){
-            chamarMapaActivity();
+            chamarMapsActivity();
         }
     }
 
@@ -92,7 +92,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 editor.putBoolean(MANTER_CONECTADO, true);
                 editor.commit();
                 }
-                chamarMapaActivity();
+                chamarMapsActivity();
         }else {
             Toast.makeText(this, resources.getString(R.string.login_auth_deny), Toast.LENGTH_LONG).show();
         }
@@ -170,8 +170,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         finish();
     }
 
-    private void chamarMapaActivity(){
-        startActivity(new Intent(this, MapaActivity.class));
+    private void chamarMapsActivity(){
+        startActivity(new Intent(this, MapsActivity.class));
         finish();
     }
 
